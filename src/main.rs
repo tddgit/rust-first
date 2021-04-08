@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-#![allow()]
+
 
 use std::io::stdin;
 use std::mem;
@@ -16,7 +16,7 @@ fn main() {
     // println!("const MEANING_OF_LIFE = {}", MEANING_OF_LIFE)
     // if_statement();
     // while_and_loop();
-    // match_statement();
+    // match_statecment();
     // for_loop();
     // combination_lock();
     // structures();
@@ -28,7 +28,28 @@ fn main() {
     // slices();
     // tuples();
 // pm::pattern_matching();
-    generics();
+//     generics();
+    vectors();
+}
+
+fn vectors() {
+    let mut a = Vec::new();
+    a.push(1);
+    a.push(2);
+    a.push(3);
+
+    println!("a = {:?}", a);
+    a.push(44);
+    println!("a = {:?}", a);
+    //usize isize
+    let idx: usize = 2;
+
+    println!("a[2] = {}", a[idx]);
+
+    match a.get(6) {
+        Some(x) => println!("a[6] = {}", x),
+        None => println!("error, no such element")
+    }
 }
 
 fn generics() {
@@ -36,10 +57,24 @@ fn generics() {
         x: T,
         y: V,
     }
+    struct Point1<T> {
+        x: T,
+        y: T,
+    }
+    struct Line<T> {
+        start: Point1<T>,
+        end: Point1<T>,
+    }
+
     let a: Point<u16, i32> = Point { x: 0, y: 0 };
     let b: Point<f64, f32> = Point { x: 1.2, y: 3.4 };
-    let c: Point = Point { x: 3, y: 5.0 };
-    let d: Point = Point { x: 1, y: 4.5 };
+    let c: Point<i32, f64> = Point { x: 3, y: 5.0 };
+    let d: Point<i32, f64> = Point { x: 1, y: 4.5 };
+    let x: Point1<f64> = Point1 { x: 1f64, y: 2f64 };
+    let y: Point1<f64> = Point1 { x: 3f64, y: 4f64 };
+
+
+    let myline = Line { start: x, end: y };
 }
 
 fn tuples() {
