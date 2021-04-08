@@ -2,8 +2,10 @@
 #![allow(unused_variables)]
 
 
+use std::collections::{HashMap, HashSet};
 use std::io::stdin;
 use std::mem;
+
 
 mod pm;
 
@@ -27,9 +29,150 @@ fn main() {
     // array();
     // slices();
     // tuples();
-// pm::pattern_matching();
-//     generics();
-    vectors();
+    // pm::pattern_matching();
+    //     generics();
+    //     vectors();
+    // hashmaps();
+    // hashsets();
+    // functions();
+    // methods();
+    closures();
+    // h_o_functions();
+}
+
+fn h_o_functions() {
+
+
+
+}
+
+fn closures() {
+   let sh = say_hello;
+    sh();
+
+    let plus_one = |x:i32| -> i32 {x+1};
+    let a = 6;
+    println!("{} +1 = {}", a, plus_one(a));
+
+    let plus_two = |x:isize| {
+        let mut z = x;
+        z+=2;
+        z
+    };
+
+    println!("{} +2 = {}", 3, plus_two(3));
+
+}
+
+
+fn say_hello() {println!("Hello")}
+
+fn methods() {
+
+    struct Point {
+        x: f64,
+        y: f64
+    }
+    struct Line {
+        start: Point,
+        end: Point,
+    }
+
+    impl Line {
+        fn len(&self) -> f64 {
+            let dx = self.start.x - self.end.x;
+            let dy = self.start.y - self.end.y;
+            (dx*dx + dy*dy).sqrt()
+        }
+    }
+
+    let p = Point {x: 3.0, y: 4.0};
+    let p2 = Point {x: 5.0, y: 10.0};
+    let myline = Line { start: p, end: p2};
+
+    println!("lengh = {}", myline.len())
+
+}
+
+fn functions() {
+    print_value(33);
+    let mut z = 1;
+    increase1(&mut z);
+    println!("z is {}", z);
+
+    let a = 3;
+    let b = 5;
+    let p = product(a, b);
+
+
+}
+
+fn product(x: i32, y: i32) -> i32 {
+    // return x*y;
+    x * y
+}
+
+fn increase1(x: &mut i32) {
+    *x += 1;
+}
+
+fn print_value(x: i32) {
+    println!("x is {}", x)
+}
+
+
+fn hashsets() {
+    let mut greeks = HashSet::new();
+    greeks.insert("alfa");
+    greeks.insert("delta");
+    greeks.insert("hamma");
+    greeks.insert("delta");
+    println!("{:?}", greeks);
+
+    let added_delta = greeks.insert("delta");
+    if added_delta {
+        println!("We added delta! hooray!")
+    }
+    let added_vega = greeks.insert("vega");
+
+    if added_vega {
+        println!("We added vega! hooray!")
+    }
+
+    if !greeks.contains("kappa") {
+        println!("We don't have kappa")
+    }
+}
+
+
+fn hashmaps() {
+    let mut shapes = HashMap::new();
+    shapes.insert(String::from("triangle"), 3);
+    shapes.insert(String::from("square"), 4);
+
+    println!("hashmaps: {:?}", shapes);
+    println!("a square has {} sides", shapes["square"]);
+
+    shapes.insert("square".into(), 5);
+    println!("{:?}", shapes);
+
+    for (key, value) in &shapes {
+        println!("key: {}, value: {}", key, value);
+    }
+    shapes.entry("circle".into()).or_insert(1);
+
+    {
+        let actual = shapes.entry("circle".into()).or_insert(2);
+        *actual = 0;
+    }
+    println!("{:?}", shapes);
+
+    let _1_5: HashSet<_> = (1..=5).collect();
+    let _6_10: HashSet<_> = (6..=10).collect();
+    let _1_10: HashSet<_> = (1..=10).collect();
+    let _2_8: HashSet<_> = (2..=8).collect();
+
+    //subset
 }
 
 fn vectors() {
@@ -50,7 +193,29 @@ fn vectors() {
         Some(x) => println!("a[6] = {}", x),
         None => println!("error, no such element")
     }
+
+    for x in &a { println!("{}", x) }
+    a.push(77);
+    println!("{:?}", a);
+
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+    let last_elem = a.pop();
+    println!("{:?}", last_elem);
+
+    while let Some(x) = a.pop() {
+        println!("{}", x)
+    }
 }
+
 
 fn generics() {
     struct Point<T, V> {
